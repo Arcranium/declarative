@@ -2,7 +2,7 @@
 import DEffect from "@lib/components/DEffect.vue";
 import {computed, provide, readonly, ref} from "vue";
 import {onClickOutside} from "@vueuse/core";
-import { TransitionExpand, TransitionSlide } from "@morev/vue-transitions";
+import { TransitionExpand } from "@morev/vue-transitions";
 import DDimmed from "@lib/components/modal/DDimmed.vue";
 import DTransitionSlide from "@lib/components/transitions/DTransitionSlide.vue";
 import {useTailwindBreakpoints} from "@lib/composables/breakpoints.ts";

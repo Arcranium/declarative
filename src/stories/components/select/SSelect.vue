@@ -5,7 +5,7 @@ import DSelectOption from "@lib/components/select/DSelectOption.vue";
 withDefaults(defineProps<{
   size?: "small" | "medium" | "large",
   multiselect?: boolean,
-  modal?: boolean,
+  modal?: boolean | "auto",
 }>(), {
   size: "medium",
   multiselect: false,

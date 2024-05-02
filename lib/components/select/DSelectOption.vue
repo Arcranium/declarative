@@ -2,8 +2,6 @@
 import DEffect from "@lib/components/DEffect.vue";
 import {computed, onMounted, Ref} from "vue";
 import {inject} from "vue";
-import TransitionSlide from "@morev/vue-transitions";
-import DTransitionSlide from "@lib/components/transitions/DTransitionSlide.vue";
 
 const props = withDefaults(defineProps<{
   value?: string | number
