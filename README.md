@@ -1,9 +1,17 @@
-# Vue 3 + TypeScript + Vite
+# Declarative
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### Use predefined composables/components/utilities to build Vue 3 applications faster
 
-## Recommended Setup
+# Get started
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+Add following line to `"dependencies"` of your `package.json` file
+```json
+ "declarative": "git://github.com/arcranium/declarative.git#development"
+```
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+Then initialize the plugin with tailwind configuration at your `main.js/main.ts`
+```ts
+app.use(DeclarativePlugin({
+    tailwindConfig: tailwindConfig
+}));
+```
