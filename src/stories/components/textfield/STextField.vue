@@ -11,7 +11,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <DTextField :size="size" :placeholder="placeholder"/>
+  <d-text-field :size="size" :placeholder="placeholder"/>
 </template>
 
 <style scoped lang="postcss">

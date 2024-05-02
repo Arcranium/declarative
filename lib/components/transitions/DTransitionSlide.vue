@@ -5,11 +5,13 @@ const props = withDefaults(defineProps<{
   appear?: boolean,
 
   axis?: "x" | "y" | "-x" | "-y",
-  factor?: number | string
+  factor?: number | string,
+  reverseDirection?: boolean
 }>(), {
   appear: false,
   axis: "x",
-  factor: 30
+  factor: 30,
+  reverseDirection: true
 });
 
 const multipliers: { [k: string]: [number, number] } = {
@@ -26,7 +28,7 @@ function multiplyFactor(multiplier: number, factor: string) {
     return `-${factor}`;
   }
 
-  return ``;
+  return `0`;
 }
 
 const factorString = computed(() => {
@@ -37,14 +39,15 @@ const from = computed(() => {
   const factorValue = factorString.value;
   const multiplier = multipliers[props.axis];
 
-  return [multiplyFactor(multiplier[0], factorValue), multiplyFactor(multiplier[1], factorValue)];
+  return `${multiplyFactor(multiplier[0], factorValue)}, ${multiplyFactor(multiplier[1], factorValue)}`;
 });
 
 const to = computed(() => {
   const factorValue = factorString.value;
   const multiplier = multipliers[props.axis];
+  const globalMul = props.reverseDirection ? -1 : 1;
 
-  return [multiplyFactor(multiplier[0] * -1, factorValue), multiplyFactor(multiplier[1] * -1, factorValue)];
+  return `${multiplyFactor(multiplier[0] * globalMul, factorValue)}, ${multiplyFactor(multiplier[1] * globalMul, factorValue)}`;
 });
 </script>
 
@@ -57,14 +60,20 @@ const to = computed(() => {
 <style scoped lang="postcss">
 .d-slide-enter-active,
 .d-slide-leave-active {
-  @apply transition-all duration-1000
+  transition: all 0.25s;
+}
+
+.d-slide-leave-active {
+  position: absolute;
 }
 
 .d-slide-enter-from {
-  translate: v-bind('from[0]') v-bind('from[1]');
+  opacity: 0;
+  transform: translate(v-bind(from));
 }
 
 .d-slide-leave-to {
-  translate: v-bind('to[0]') v-bind('to[1]');
+  opacity: 0;
+  transform: translate(v-bind(to));
 }
 </style>

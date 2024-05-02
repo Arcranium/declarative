@@ -32,3 +32,15 @@ export const Large: Story = {
         size: "large"
     }
 };
+
+export const Multiselect: Story = {
+    args: {
+        multiselect: true
+    }
+};
+
+export const Modal: Story = {
+    args: {
+        modal: true
+    }
+};

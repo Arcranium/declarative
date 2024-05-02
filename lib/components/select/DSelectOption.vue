@@ -39,7 +39,10 @@ function onClick() {
 
 const classes = computed(() => {
   return [
-    selectSize
+    selectSize,
+    {
+      selected: isSelected.value
+    }
   ];
 })
 
@@ -63,11 +66,11 @@ const isSelected = computed(() => {
       </button>
     </d-effect>
 
-    <d-transition-slide appear>
-      <Teleport v-if="selectCurrent && isSelected" :to="selectRender">
+    <Teleport v-if="selectRender" :to="selectRender">
+      <span v-if="isSelected">
         <slot/>
-      </Teleport>
-    </d-transition-slide>
+      </span>
+    </Teleport>
   </div>
 </template>
 
@@ -86,5 +89,9 @@ const isSelected = computed(() => {
 
 .d-select-option.large {
   @apply p-3
+}
+
+.d-select-option.selected {
+  @apply font-bold opacity-75 scale-95 bg-gray-200
 }
 </style>
