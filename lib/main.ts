@@ -7,6 +7,7 @@ import DTransitionSlide from "@lib/components/transitions/DTransitionSlide.vue";
 import DSelect from "@lib/components/select/DSelect.vue";
 import DSelectOption from "@lib/components/select/DSelectOption.vue";
 import DDimmed from "@lib/components/modal/DDimmed.vue";
+import DModal from "@lib/components/modal/DModal.vue";
 
 export * from "@lib/composables/breakpoints.ts";
 export * from "@lib/plugin/plugin.ts";
@@ -19,4 +20,5 @@ export {
     DSelect,
     DSelectOption,
     DDimmed,
+    DModal
 };

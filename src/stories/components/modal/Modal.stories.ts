@@ -43,6 +43,6 @@ export const NoBackdrop: Story = {
 
 export const Fullscreen: Story = {
     args: {
-        fullscreen: true
+        fullscreen: "True"
     }
 }
