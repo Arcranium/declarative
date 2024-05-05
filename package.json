@@ -26,6 +26,7 @@
   "dependencies": {
     "@morev/vue-transitions": "^3.0.2",
     "@vueuse/core": "^10.9.0",
+    "uuid": "^9.0.1",
     "vue": "^3.4.21"
   },
   "devDependencies": {

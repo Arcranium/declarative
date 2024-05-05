@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import DEffect from "@lib/components/DEffect.vue";
-import {computed, provide, readonly, ref} from "vue";
-import {onClickOutside} from "@vueuse/core";
+import {computed, provide, readonly, ref, watch} from "vue";
+import {
+  onClickOutside,
+  TransitionPresets, useElementVisibility,
+  useIntersectionObserver,
+  usePointerSwipe,
+  useSwipe,
+  useTransition
+} from "@vueuse/core";
 import { TransitionExpand } from "@morev/vue-transitions";
 import DDimmed from "@lib/components/modal/DDimmed.vue";
 import DTransitionSlide from "@lib/components/transitions/DTransitionSlide.vue";
 import {useTailwindBreakpoints} from "@lib/composables/breakpoints.ts";
+
+const SWIPE_CLOSE_THRESHOLD = 0.65;
 
 const model = defineModel();
 
@@ -19,12 +28,34 @@ const props = withDefaults(defineProps<{
   modal: "auto"
 });
 
-const breakpoints = useTailwindBreakpoints();
-
 const isOpen = ref(false);
 
 const rootElementRef = ref<HTMLElement>();
 const displayElementRef = ref<HTMLElement>();
+const modalElementRef = ref<HTMLElement>();
+
+const breakpoints = useTailwindBreakpoints();
+
+const { isSwiping, lengthX, lengthY } = useSwipe(modalElementRef);
+
+const modalIntersectionRatio = ref(0);
+
+useIntersectionObserver(
+    modalElementRef,
+    ([{ intersectionRatio }]) => {
+      modalIntersectionRatio.value = intersectionRatio;
+    },
+    {
+      threshold: [SWIPE_CLOSE_THRESHOLD],
+    }
+)
+
+provide('select-open', isOpen);
+provide('select-multiselect', props.multiselect);
+provide('select-render', readonly(displayElementRef));
+provide('select-size', props.size);
+provide('select-current', readonly(model));
+provide('select-update', updateSelected);
 
 onClickOutside(rootElementRef, () => {
   if(props.modal == true) return;
@@ -41,18 +72,38 @@ const classes = computed(() => {
   ]
 });
 
-provide('select-open', isOpen);
-provide('select-multiselect', props.multiselect);
-provide('select-render', readonly(displayElementRef));
-provide('select-size', props.size);
-provide('select-current', readonly(model));
-provide('select-update', updateSelected);
-
 const shouldRenderAsModal = computed(() => {
   if(props.modal == true) return true;
   if(props.modal == false) return false;
 
   return breakpoints.smallerOrEqual("md").value;
+});
+
+const modalClasses = computed(() => {
+  return {
+    "scale-125 opacity-0 translate-y-[200%]": !isOpen.value,
+  }
+})
+
+const modalStyles = computed(() => {
+  return {
+    "transform": `translate(${modalContainerTranslate.value[0]}px, ${modalContainerTranslate.value[1]}px)`,
+    "transition": `${!isSwiping.value ? 'all' : 'none'} 0.2s`
+  }
+})
+
+const modalContainerTranslate = computed(() => {
+  if(isSwiping.value && isOpen.value) {
+    return [0, -lengthY.value];
+  }
+
+  return [0, 0];
+});
+
+watch([modalIntersectionRatio, isSwiping], () => {
+  if((modalIntersectionRatio.value < SWIPE_CLOSE_THRESHOLD) && !isSwiping.value) {
+    isOpen.value = false;
+  }
 })
 
 function updateSelected(value: any) {
@@ -99,10 +150,14 @@ function toggleOpen() {
         <slot/>
       </div>
     </transition-expand>
-    <d-dimmed v-else :show="isOpen">
+    <d-dimmed v-else :show="isOpen" :teleport="false">
       <d-transition-slide axis="y" :reverse-direction="false">
-        <div v-if="isOpen" @click.self="isOpen = false" class="size-full flex justify-center">
-          <div v-if="isOpen" class="mt-auto mb-5 mx-5 p-4 rounded-xl w-full bg-white flex flex-col gap-2">
+        <div v-if="isOpen" @click.self="isOpen = false" class="size-full overflow-hidden flex justify-center transition-all">
+          <div class="mt-auto mb-5 mx-5 p-4 rounded-xl w-full bg-white border-2 flex flex-col gap-2" ref="modalElementRef" :class="modalClasses" :style="modalStyles">
+            <div class="w-full flex justify-center">
+              <span class="w-2/5 border-2"/>
+            </div>
+
             <slot/>
           </div>
         </div>

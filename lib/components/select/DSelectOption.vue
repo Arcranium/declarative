@@ -3,10 +3,13 @@ import DEffect from "@lib/components/DEffect.vue";
 import {computed, onMounted, Ref} from "vue";
 import {inject} from "vue";
 
+import {v4 as uuid} from "uuid";
+
+
 const props = withDefaults(defineProps<{
   value?: string | number
 }>(), {
-  value: crypto.randomUUID()
+  value: uuid()
 });
 
 onMounted(() => {

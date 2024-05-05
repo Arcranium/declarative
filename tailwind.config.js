@@ -5,7 +5,11 @@ export default {
       "lib/**/*.{js,ts,jsx,tsx,mdx,vue}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        zIndex: {
+            'max': '2147483647'
+        }
+    },
   },
   plugins: [],
 }

@@ -4,11 +4,13 @@ import {computed} from "vue";
 const props = withDefaults(defineProps<{
   center?: boolean,
   teleport?: boolean,
-  show?: boolean
+  show?: boolean,
+  disabled?: boolean
 }>(), {
   center: false,
   teleport: true,
-  show: false
+  show: false,
+  disabled: false
 });
 
 const emit = defineEmits([
@@ -17,16 +19,14 @@ const emit = defineEmits([
 
 const classes = computed(() => {
   return {
-    'backdrop-blur-0 bg-transparent opacity-0 pointer-events-none': !props.show,
+    'opacity-0': !props.show,
+    '!backdrop-blur-0 bg-transparent pointer-events-none': props.disabled || !props.show,
     'flex justify-center items-center': props.center
   }
 })
 
 function onClick(e: MouseEvent) {
   if(e.target != e.currentTarget) {
-    console.log(e.target);
-    console.log(e.currentTarget);
-
     e.stopPropagation();
     e.preventDefault();
     return;
@@ -38,11 +38,14 @@ function onClick(e: MouseEvent) {
 </script>
 
 <template>
-  <Teleport to=":root">
-    <div class="fixed top-0 left-0 w-dvw h-dvh bg-black/20 backdrop-blur-[2px] z-50 transition" @click="onClick" :class="classes">
+  <Teleport to=":root" v-if="teleport">
+    <d-dimmed v-bind="$attrs" :teleport="false">
       <slot/>
-    </div>
+    </d-dimmed>
   </Teleport>
+  <div v-else class="fixed top-0 left-0 w-dvw h-dvh bg-black/20 backdrop-blur-[2px] z-max transition" @click="onClick" :class="classes">
+    <slot/>
+  </div>
 </template>
 
 <style scoped lang="postcss">
