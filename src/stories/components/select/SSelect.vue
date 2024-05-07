@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import DSelect from "@lib/components/select/DSelect.vue";
-import DSelectOption from "@lib/components/select/DSelectOption.vue";
+import "@lib/styles/index.css";
+
+import { DSelect, DSelectOption } from "@lib/components/select";
 
 withDefaults(defineProps<{
   size?: "small" | "medium" | "large",

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import SSelect from "@stories/components/select/SSelect.vue";
-;
+import SSelect from "./SSelect.vue";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {

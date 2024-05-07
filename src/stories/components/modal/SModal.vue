@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import "@lib/styles/index.css";
+
 import DModal from "@lib/components/modal/DModal.vue";
 import DButton from "@lib/components/DButton.vue";
 import {ref} from "vue";
 
 const props = withDefaults(defineProps<{
+  title?: string,
+
   closable?: boolean
   noBackdrop?: boolean,
 
@@ -12,6 +16,8 @@ const props = withDefaults(defineProps<{
 
   fullscreen?: "True" | "False" | "Auto"
 }>(), {
+  title: "Title",
+
   closable: true,
   noBackdrop: false,
 
@@ -26,7 +32,6 @@ const open = ref(false);
 
 <template>
   <d-modal
-      v-if="open"
       v-model="open"
 
       :closable="closable"
@@ -35,7 +40,9 @@ const open = ref(false);
       :align-horizontal="alignHorizontal"
       :fullscreen="fullscreen == 'Auto' ? 'auto' : (fullscreen == 'True')"
   >
-    <template #title>{{open}}</template>
+    <template #title>
+      {{ title }}
+    </template>
   </d-modal>
 
   <d-button @click="open = true">

@@ -16,7 +16,7 @@ const meta = {
     },
     args: {
         closable: true,
-        noBackdrop: true,
+        noBackdrop: false,
         alignVertical: "center",
         alignHorizontal: "center",
         fullscreen: "False"
@@ -32,7 +32,6 @@ type Story = StoryObj<typeof meta>;
  */
 
 export const Default: Story = {
-
 };
 
 export const NoBackdrop: Story = {

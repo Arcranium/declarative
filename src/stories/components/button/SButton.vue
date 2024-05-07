@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import "@stories/styles/main.css";
+import "@lib/styles/index.css";
 
 import DButton from "@lib/components/DButton.vue";
 

@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import DTextField from "@lib/components/DTextField.vue";
+import "@lib/styles/index.css";
 
-withDefaults(defineProps<{
+import DTextField from "@lib/components/DTextField.vue";
+import {onMounted, ref, watch} from "vue";
+import {DEffect} from "@lib/components";
+
+const props = withDefaults(defineProps<{
   size?: "small" | "medium" | "large",
-  placeholder?: string
+  placeholder?: string,
+  storybookInvalid?: boolean
 }>(), {
   size: "medium",
-  placeholder: ""
+  placeholder: "",
+  storybookInvalid: false
 });
 </script>
 
 <template>
-  <d-text-field :size="size" :placeholder="placeholder"/>
+  <d-text-field :validity="storybookInvalid" :size="size" :placeholder="placeholder" />
 </template>
 
 <style scoped lang="postcss">
