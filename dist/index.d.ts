@@ -3,4 +3,5 @@ import type { PluginOptions } from './types';
 import "./styles/index.css";
 declare const declarativePlugin: (pluginOptions: PluginOptions) => any;
 export * from './components';
+export * from "./util";
 export { declarativePlugin, components };

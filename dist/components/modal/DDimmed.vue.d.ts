@@ -1,6 +1,6 @@
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToOption<{
     center?: boolean | undefined;
-    teleport?: boolean | undefined;
+    teleport?: string | boolean | undefined;
     show?: boolean | undefined;
     disabled?: boolean | undefined;
 }>, {
@@ -10,7 +10,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled: boolean;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, any, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<{
     center?: boolean | undefined;
-    teleport?: boolean | undefined;
+    teleport?: string | boolean | undefined;
     show?: boolean | undefined;
     disabled?: boolean | undefined;
 }>, {
@@ -20,7 +20,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled: boolean;
 }>>>, {
     center: boolean;
-    teleport: boolean;
+    teleport: string | boolean;
     show: boolean;
     disabled: boolean;
 }, {}>, {

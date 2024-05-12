@@ -1,24 +1,28 @@
 <script setup lang="ts">
-import DEffect from "@lib/components/DEffect.vue";
-import {computed, onMounted, Ref, watch} from "vue";
+import {computed, onMounted, Ref} from "vue";
 import {inject} from "vue";
 
 import {v4 as uuid} from "uuid";
 
-
 const props = withDefaults(defineProps<{
-  value?: string | number
+  value?: string | number,
+  default?: boolean,
+  action?: boolean
 }>(), {
-  value: uuid()
+  value: uuid(),
+  default: false,
+  action: false
 });
 
+const emit = defineEmits([
+    "action"
+]);
+
 onMounted(() => {
-  if(selectCurrent && selectUpdate) {
-    if(!selectCurrent.value) {
-      selectUpdate(props.value);
-    }
+  if(props.default && selectUpdate) {
+    selectUpdate(props.value);
   }
-})
+});
 
 const selectOpen = inject<Ref<boolean>>("select-open");
 const selectMultiselect = inject<boolean>("select-multiselect");
@@ -31,10 +35,20 @@ function onClick() {
   if(!selectUpdate)
     return;
 
+  if(props.action) {
+    emit("action");
+
+    if(selectOpen)
+      selectOpen.value = false;
+
+    return;
+  }
+
   selectUpdate(props.value);
 
-  if(selectOpen?.value && !selectMultiselect)
+  if(selectOpen?.value && !selectMultiselect) {
     selectOpen.value = false;
+  }
 }
 
 const classes = computed(() => {
@@ -56,17 +70,26 @@ const isSelected = computed(() => {
     return selectCurrent.value == props.value;
   }
 });
+
+const shouldRenderDisplay = computed(() => {
+  if(!selectCurrent?.value)
+    return false;
+
+  if(selectMultiselect && Array.isArray(selectCurrent.value)) {
+    return selectCurrent.value.indexOf(props.value) == 0;
+  } else {
+    return selectCurrent.value == props.value;
+  }
+})
 </script>
 
 <template>
   <div>
-    <d-effect>
-      <button class="d-select-option" :class="classes" @click="onClick">
-        <slot/>
-      </button>
-    </d-effect>
+    <button class="d-select-option" :class="classes" @click="onClick">
+      <slot/>
+    </button>
 
-    <Teleport v-if="selectRender" :to="selectRender">
+    <Teleport v-if="selectRender && shouldRenderDisplay" :to="selectRender">
       <span v-if="isSelected">
         <slot/>
       </span>
@@ -76,7 +99,7 @@ const isSelected = computed(() => {
 
 <style scoped lang="postcss">
 .d-select-option {
-  @apply bg-white border-2 rounded-md outline-0 transition-all whitespace-nowrap w-full
+  @apply bg-white border-2 rounded-md outline-0 transition-all whitespace-nowrap w-full effect
 }
 
 .d-select-option.small {

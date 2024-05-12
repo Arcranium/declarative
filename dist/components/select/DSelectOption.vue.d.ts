@@ -1,13 +1,23 @@
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToOption<{
     value?: string | number | undefined;
+    default?: boolean | undefined;
+    action?: boolean | undefined;
 }>, {
     value: string;
-}>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<{
+    default: boolean;
+    action: boolean;
+}>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, any, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<{
     value?: string | number | undefined;
+    default?: boolean | undefined;
+    action?: boolean | undefined;
 }>, {
     value: string;
+    default: boolean;
+    action: boolean;
 }>>>, {
+    default: boolean;
     value: string | number;
+    action: boolean;
 }, {}>, {
     default?(_: {}): any;
     default?(_: {}): any;

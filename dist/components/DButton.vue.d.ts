@@ -1,16 +1,21 @@
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToOption<{
     primary?: boolean | undefined;
     size?: "small" | "medium" | "large" | undefined;
+    submit?: boolean | undefined;
 }>, {
     primary: boolean;
     size: string;
+    submit: boolean;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<{
     primary?: boolean | undefined;
     size?: "small" | "medium" | "large" | undefined;
+    submit?: boolean | undefined;
 }>, {
     primary: boolean;
     size: string;
+    submit: boolean;
 }>>>, {
+    submit: boolean;
     size: "small" | "medium" | "large";
     primary: boolean;
 }, {}>, {

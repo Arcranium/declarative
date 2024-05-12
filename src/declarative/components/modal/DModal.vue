@@ -3,6 +3,7 @@ import {createTopLevelElement} from "@lib/util/top_level_element";
 import DDimmed from "@lib/components/modal/DDimmed.vue";
 import {computed} from "vue";
 import {useTailwindBreakpoints} from "@lib/composables/breakpoints";
+import {DButton} from "@lib/components";
 
 const props = withDefaults(defineProps<{
   closable?: boolean,
@@ -10,17 +11,20 @@ const props = withDefaults(defineProps<{
   alignVertical?: "start" | "center" | "end",
   alignHorizontal?: "start" | "center" | "end",
   fullscreen?: boolean | "auto",
-  screen?: "parent" | "screen"
+  screen?: "parent" | "screen",
+  form?: boolean
 }>(), {
   closable: true,
   noBackdrop: false,
   alignVertical: "center",
   alignHorizontal: "center",
   fullscreen: false,
-  screen: "parent"
+  screen: "parent",
+  form: false
 });
 
 const emit = defineEmits([
+    "submit",
     "close"
 ]);
 
@@ -39,10 +43,11 @@ const backClasses = computed(() => {
 
 const classes = computed(() => {
   const fullscreenClasses = [
-      props.screen == "parent" ? "!size-full" : "!w-dvw !h-dvh"
+      props.screen == "parent" ? "!size-full" : "!w-dvw !h-dvh",
+      "!rounded-none !border-none"
   ];
 
-  return [{
+  return [shouldRenderFullscreen.value ? fullscreenClasses.join(" ") : "", {
     'scale-110': !model.value,
   }];
 });
@@ -64,9 +69,9 @@ function onClose() {
 </script>
 
 <template>
-  <Teleport :to="modalRoot">
+  <Teleport :to="modalRoot" :disabled="true">
     <d-dimmed :show="model" :disabled="noBackdrop" :teleport="false">
-      <div class="size-full flex" :class="backClasses" @click.self="onClose">
+      <form class="size-full flex" :class="backClasses" @click.self="onClose">
         <div class="bg-white p-4 rounded-3xl sm:min-w-96 min-w-72 border-2 shadow-2xl transition-all duration-300" :class="classes">
           <div class="m-4 font-medium text-3xl select-none empty:hidden overflow-hidden">
             <slot name="title"/>
@@ -77,10 +82,10 @@ function onClose() {
           </div>
           <div class="border-b-2"></div>
           <div class="p-3 empty:p-0 select-none empty:hidden">
-            <slot name="action"></slot>
+            <button type="submit">asdf</button>
           </div>
         </div>
-      </div>
+      </form>
     </d-dimmed>
   </Teleport>
 </template>

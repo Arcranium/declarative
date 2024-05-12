@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import DEffect from "@lib/components/DEffect.vue";
 import {computed, provide, readonly, ref, watch} from "vue";
 import {
   onClickOutside,
@@ -13,6 +12,7 @@ import { TransitionExpand } from "@morev/vue-transitions";
 import DDimmed from "@lib/components/modal/DDimmed.vue";
 import DTransitionSlide from "@lib/components/transitions/DTransitionSlide.vue";
 import {useTailwindBreakpoints} from "@lib/composables/breakpoints";
+import {DButton} from "@lib/components";
 
 const SWIPE_CLOSE_THRESHOLD = 0.65;
 
@@ -21,10 +21,12 @@ const model = defineModel();
 const props = withDefaults(defineProps<{
   size?: "small" | "medium" | "large",
   multiselect?: boolean,
-  modal?: boolean | "auto"
+  placeholder?: string
+  modal?: boolean | "auto",
 }>(), {
   size: "medium",
   multiselect: false,
+  placeholder: "",
   modal: "auto"
 });
 
@@ -58,9 +60,9 @@ provide('select-current', model);
 provide('select-update', updateSelected);
 
 onClickOutside(rootElementRef, () => {
-  if(props.modal == true) return;
+  if(props.modal == true || (props.modal == "auto" && shouldRenderAsModal.value)) return;
 
-  isOpen.value = false
+  isOpen.value = false;
 });
 
 const classes = computed(() => {
@@ -77,6 +79,11 @@ const shouldRenderAsModal = computed(() => {
   if(props.modal == false) return false;
 
   return breakpoints.smallerOrEqual("md").value;
+});
+
+const shouldDisplayPlaceholder = computed(() => {
+  if(!model.value) return true;
+  if(Array.isArray(model.value) && model.value.length < 1) return true;
 });
 
 const modalClasses = computed(() => {
@@ -140,20 +147,20 @@ function toggleOpen() {
 
 <template>
   <div class="d-select-root" ref="rootElementRef">
-    <d-effect>
-      <button class="d-select" :class="classes" @click="toggleOpen">
-        <span :key="JSON.stringify(model)" class="d-select-display" ref="displayElementRef"/>
+    <d-button class="d-select" :class="classes" @click="toggleOpen">
+      <span :key="JSON.stringify(model)" class="d-select-display" ref="displayElementRef"/>
+      <span v-if="shouldDisplayPlaceholder" class="text-gray-500">{{ placeholder }}</span>
+      <span v-if="Array.isArray(model) && model.length > 1">(+{{model.length - 1}})</span>
 
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-360 280-560h400L480-360Z"/></svg>
-      </button>
-    </d-effect>
+      <svg class="icon ml-auto" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-360 280-560h400L480-360Z"/></svg>
+    </d-button>
 
     <transition-expand v-if="!shouldRenderAsModal" appear>
       <div v-if="isOpen" class="d-select-options">
         <slot/>
       </div>
     </transition-expand>
-    <d-dimmed v-else :show="isOpen" :teleport="false">
+    <d-dimmed v-else :show="isOpen">
       <d-transition-slide axis="y" :reverse-direction="false">
         <div v-if="isOpen" @click.self="isOpen = false" class="size-full overflow-hidden flex justify-center transition-all">
           <div class="mt-auto mb-5 mx-5 p-4 rounded-xl w-full bg-white border-2 flex flex-col gap-2" ref="modalElementRef" :class="modalClasses" :style="modalStyles">
@@ -178,8 +185,12 @@ function toggleOpen() {
   @apply relative w-min
 }
 
+.d-select-display {
+  @apply text-ellipsis
+}
+
 .d-select {
-  @apply outline-0 bg-white border-2 w-min select-none flex items-center overflow-hidden
+  @apply flex items-center overflow-hidden size-full
 }
 
 .d-select.small {
@@ -203,6 +214,6 @@ function toggleOpen() {
 }
 
 .d-select-options {
-  @apply overflow-hidden absolute min-w-full mt-2 shadow-lg top-full left-0 flex flex-col gap-2 backdrop-blur bg-[rgba(255,255,255,0.8)] rounded-xl border-2 p-2
+  @apply overflow-hidden absolute z-max min-w-full mt-2 shadow-lg top-full left-0 flex flex-col gap-2 backdrop-blur bg-[rgba(255,255,255,0.8)] rounded-xl border-2 p-2
 }
 </style>

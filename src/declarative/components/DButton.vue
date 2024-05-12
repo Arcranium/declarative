@@ -4,11 +4,14 @@ import { DEffect } from "@lib/components/index";
 
 const props = withDefaults(defineProps<{
   primary?: boolean,
+  size?: "small" | "medium" | "large",
 
-  size?: "small" | "medium" | "large"
+  submit?: boolean
 }>(), {
   primary: false,
-  size: "medium"
+  size: "medium",
+
+  submit: false
 });
 
 const classes = computed(() => {
@@ -22,16 +25,14 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <d-effect>
-    <button class="d-button" :class="classes" v-bind="$attrs">
-      <slot/>
-    </button>
-  </d-effect>
+  <button class="d-button" :class="classes" type="submit">
+    <slot/>
+  </button>
 </template>
 
 <style scoped lang="postcss">
 .d-button {
-  @apply select-none border-2 outline-0 whitespace-nowrap
+  @apply select-none border-2 outline-0 whitespace-nowrap effect
 }
 
 .d-button.primary {

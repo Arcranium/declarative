@@ -5,6 +5,7 @@ declare let __VLS_typeProps: {
     alignHorizontal?: "start" | "center" | "end";
     fullscreen?: boolean | "auto";
     screen?: "parent" | "screen";
+    form?: boolean;
 };
 type __VLS_PublicProps = {
     modelValue?: boolean;
@@ -16,6 +17,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     alignHorizontal: string;
     fullscreen: boolean;
     screen: string;
+    form: boolean;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, any, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_PublicProps>, {
     closable: boolean;
     noBackdrop: boolean;
@@ -23,7 +25,9 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     alignHorizontal: string;
     fullscreen: boolean;
     screen: string;
+    form: boolean;
 }>>>, {
+    form: boolean;
     screen: "parent" | "screen";
     closable: boolean;
     noBackdrop: boolean;

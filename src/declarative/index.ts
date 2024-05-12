@@ -13,6 +13,7 @@ const declarativePlugin = (pluginOptions: PluginOptions): any => {
 };
 
 export * from './components';
+export * from "./util";
 export {
     declarativePlugin,
     components

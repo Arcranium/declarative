@@ -2,6 +2,7 @@
 import "@lib/styles/index.css";
 
 import { DSelect, DSelectOption } from "@lib/components/select";
+import {ref} from "vue";
 
 withDefaults(defineProps<{
   size?: "small" | "medium" | "large",
@@ -13,15 +14,16 @@ withDefaults(defineProps<{
   modal: "auto"
 });
 
+const model = ref();
 </script>
 
 <template>
-  <d-select :size="size" :multiselect="multiselect" :modal="modal">
-    <d-select-option value=1>Welcome1</d-select-option>
-    <d-select-option value=2>Welcome2</d-select-option>
-    <d-select-option value=3>Welcome3</d-select-option>
-    <d-select-option value=4>Welcome4</d-select-option>
-    <d-select-option value=5>Welcome5</d-select-option>
+  <d-select :size="size" :multiselect="multiselect" :modal="modal" v-model="model" placeholder="Select">
+    <d-select-option value=1>Opt1</d-select-option>
+    <d-select-option value=2>Opt2</d-select-option>
+    <d-select-option value=3>Opt3</d-select-option>
+    <d-select-option value=4>Opt4</d-select-option>
+    <d-select-option value=5>Opt5</d-select-option>
   </d-select>
 </template>
 

@@ -1,6 +1,7 @@
 declare let __VLS_typeProps: {
     size?: "small" | "medium" | "large";
     multiselect?: boolean;
+    placeholder?: string;
     modal?: boolean | "auto";
 };
 type __VLS_PublicProps = {
@@ -9,14 +10,17 @@ type __VLS_PublicProps = {
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_PublicProps>, {
     size: string;
     multiselect: boolean;
+    placeholder: string;
     modal: string;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, any, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToOption<__VLS_PublicProps>, {
     size: string;
     multiselect: boolean;
+    placeholder: string;
     modal: string;
 }>>>, {
     size: "small" | "medium" | "large";
     multiselect: boolean;
+    placeholder: string;
     modal: boolean | "auto";
 }, {}>, {
     default?(_: {}): any;

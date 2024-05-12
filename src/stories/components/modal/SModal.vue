@@ -4,6 +4,7 @@ import "@lib/styles/index.css";
 import DModal from "@lib/components/modal/DModal.vue";
 import DButton from "@lib/components/DButton.vue";
 import {ref} from "vue";
+import {DTextField} from "@lib/components";
 
 const props = withDefaults(defineProps<{
   title?: string,
@@ -42,6 +43,15 @@ const open = ref(false);
   >
     <template #title>
       {{ title }}
+    </template>
+    <template #default>
+      <d-text-field placeholder="Text Input 1" class="mb-1"/>
+      Modal content
+    </template>
+    <template #action>
+      <div class="flex gap-4">
+        <d-button class="flex-1" primary>Accept</d-button>
+      </div>
     </template>
   </d-modal>
 

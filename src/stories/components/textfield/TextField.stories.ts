@@ -9,7 +9,9 @@ const meta = {
     tags: ['autodocs'],
     argTypes: {
         size: { control: "select", options: ["small", "medium", "large"] },
-        placeholder: { control: "text" }
+        placeholder: { control: "text" },
+        useAction: { control: "boolean "},
+        useValidator: { control: "boolean" },
     }
 } satisfies Meta<typeof STextField>;
 
@@ -22,14 +24,35 @@ export const Small: Story = {
     }
 }
 
+export const Medium: Story = {
+    args: {
+        size: "medium"
+    }
+}
+
 export const Large: Story = {
     args: {
         size: "large"
     }
 }
 
-export const WithPlaceholder: Story = {
+export const Placeholder: Story = {
     args: {
         placeholder: "Here is the placeholder"
+    }
+}
+
+
+export const Action: Story = {
+    args: {
+        useAction: true
+    }
+}
+
+
+
+export const Validate: Story = {
+    args: {
+        useValidator: true
     }
 }

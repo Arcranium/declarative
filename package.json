@@ -36,6 +36,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "make": "npm run build:lib && npm pack",
     "build": "npm run build:lib && npm run build:pages",
     "build:lib": "vite build --mode production && npm run generate:types",
     "clean": "rm -rf ./dist && rm -rf ./live-demo && rm -rf ./coverage && rm -rf ./storybook-static",
@@ -71,6 +72,7 @@
     "autoprefixer": "^10.4.19",
     "defu": "^6.1.3",
     "postcss": "^8.4.38",
+    "postcss-import": "^16.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.5.3",
