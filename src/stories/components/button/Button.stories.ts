@@ -36,6 +36,13 @@ export const Secondary: Story = {
   },
 };
 
+export const Dangerous: Story = {
+  args: {
+    dangerous: true,
+    label: 'Button',
+  },
+};
+
 export const Large: Story = {
   args: {
     label: 'Button',
