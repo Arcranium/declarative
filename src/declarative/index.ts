@@ -1,20 +1,13 @@
 import type { App } from 'vue'
-import * as components from './components'
-import type { PluginOptions, ComponentName } from './types'
+import * as components from './components';
+import * as imperative from "./imperative";
 import "./styles/index.css";
-
-import { Config } from "tailwindcss";
-import resolveConfig from "tailwindcss/resolveConfig";
-
-const declarativePlugin = (pluginOptions: PluginOptions): any => {
-    return (app: App) => {
-        app.provide("tailwind-config", resolveConfig(pluginOptions.tailwindConfig));
-    };
-};
 
 export * from './components';
 export * from "./util";
+export * from "./plugin";
+
 export {
-    declarativePlugin,
-    components
+    components,
+    imperative
 };
