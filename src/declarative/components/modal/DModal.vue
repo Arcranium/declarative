@@ -71,23 +71,21 @@ function onClose() {
 <template>
   <Teleport :to="modalRoot">
     <d-dimmed :show="model" :disabled="noBackdrop" :teleport="false">
-      <div class="size-full flex" :class="backClasses" @click.self="onClose">
-        <form>
-          <div class="bg-white p-4 rounded-3xl sm:min-w-96 min-w-72 border-2 shadow-2xl transition-all duration-300" :class="classes">
-            <div class="m-4 font-medium text-3xl select-none empty:hidden overflow-hidden">
-              <slot name="title"/>
-            </div>
-            <div class="border-b-2"></div>
-            <div class="py-4 px-4 empty:hidden">
-              <slot></slot>
-            </div>
-            <div class="border-b-2"></div>
-            <div class="p-3 empty:p-0 select-none empty:hidden">
-              <d-button type="submit">asdf</d-button>
-            </div>
+      <component :is="form ? 'form' : 'div'" class="size-full flex" :class="backClasses" @click.self="onClose" @submit.prevent="emit('submit')">
+        <div class="bg-white p-4 rounded-3xl sm:min-w-96 min-w-72 border-2 shadow-2xl transition-all duration-300" :class="classes">
+          <div class="m-4 font-medium text-3xl select-none empty:hidden">
+            <slot name="title"/>
           </div>
-        </form>
-      </div>
+          <div class="border-b-2"></div>
+          <div class="py-4 px-4 empty:hidden">
+            <slot></slot>
+          </div>
+          <div class="border-b-2"></div>
+          <div class="p-3 empty:p-0 select-none empty:hidden">
+            <slot name="action"/>
+          </div>
+        </div>
+      </component>
     </d-dimmed>
   </Teleport>
 </template>
