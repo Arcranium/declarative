@@ -3,8 +3,9 @@ import "@lib/styles/index.css";
 
 import DModal from "@lib/components/modal/DModal.vue";
 import DButton from "@lib/components/DButton.vue";
-import {ref} from "vue";
+import {h, onMounted, ref} from "vue";
 import {DTextField} from "@lib/components";
+import {createTopLevelElement} from "@lib/util";
 
 const props = withDefaults(defineProps<{
   title?: string,
@@ -35,6 +36,8 @@ const open = ref(false);
   <d-modal
       v-model="open"
 
+      form
+
       :closable="closable"
       :no-backdrop="noBackdrop"
       :align-vertical="alignVertical"
@@ -50,6 +53,7 @@ const open = ref(false);
     </template>
     <template #action>
       <div class="flex gap-4">
+        <d-button class="flex-1" @click="open = false">Close</d-button>
         <d-button class="flex-1" primary>Accept</d-button>
       </div>
     </template>
