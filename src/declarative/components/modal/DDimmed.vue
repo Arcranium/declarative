@@ -25,22 +25,13 @@ const classes = computed(() => {
     'fixed top-0 left-0 w-dvw h-dvh bg-black/20 backdrop-blur-[2px] z-max transition',
     {
       'opacity-0': !props.show,
-      '!backdrop-blur-0 bg-transparent pointer-events-none': props.disabled || !props.show,
+      '!backdrop-blur-0 bg-transparent': props.disabled || !props.show,
+      'pointer-events-none': !props.show,
       'flex justify-center items-center': props.center
     }
   ];
 })
 
-function onClick(e: MouseEvent) {
-  if(e.target != e.currentTarget) {
-    e.stopPropagation();
-    e.preventDefault();
-    return;
-  }
-
-  e.preventDefault();
-  emit("click", e);
-}
 </script>
 
 <template>
@@ -49,7 +40,7 @@ function onClick(e: MouseEvent) {
       <slot/>
     </div>
   </Teleport>
-  <div v-else @click="onClick" :class="classes">
+  <div v-else @click.self="emit('click')" :class="classes">
     <slot/>
   </div>
 </template>
