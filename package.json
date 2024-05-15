@@ -55,6 +55,7 @@
     "@morev/vue-transitions": "^3.0.2",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vueuse/core": "^10.9.0",
+    "pinia": "^2.1.7",
     "uuid": "^9.0.1",
     "vue": "^3.4.21"
   },

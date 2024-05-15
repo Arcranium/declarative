@@ -6,6 +6,7 @@ import tailwindConfig from "../tailwind.config";
 
 import {setup} from "@storybook/vue3";
 import {declarativePlugin} from "../src/declarative";
+import {createPinia} from "pinia";
 
 const preview: Preview = {
   parameters: {
@@ -20,6 +21,7 @@ const preview: Preview = {
 };
 
 setup((app) => {
+  app.use(createPinia())
   app.use(declarativePlugin({
     tailwindConfig: tailwindConfig
   }))
