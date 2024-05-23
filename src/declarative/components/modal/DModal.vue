@@ -1,26 +1,34 @@
 <script setup lang="ts">
 import {createTopLevelElement} from "@lib/util/top_level_element";
 import DDimmed from "@lib/components/modal/DDimmed.vue";
-import {computed} from "vue";
+import {computed, onMounted} from "vue";
 import {useTailwindBreakpoints} from "@lib/composables/breakpoints";
 import {DButton} from "@lib/components";
 
 const props = withDefaults(defineProps<{
+  zIndex?: number,
+
   closable?: boolean,
   noBackdrop?: boolean
   alignVertical?: "start" | "center" | "end",
   alignHorizontal?: "start" | "center" | "end",
   fullscreen?: boolean | "auto",
   screen?: "parent" | "screen",
-  form?: boolean
+  form?: boolean,
+
+  open?: boolean | null
 }>(), {
+  zIndex: 0,
+
   closable: true,
   noBackdrop: false,
   alignVertical: "center",
   alignHorizontal: "center",
   fullscreen: false,
   screen: "parent",
-  form: false
+  form: false,
+
+  open: null
 });
 
 const emit = defineEmits([
@@ -39,7 +47,7 @@ const backClasses = computed(() => {
       `justify-${props.alignVertical}`,
       `items-${props.alignHorizontal}`
   ]
-})
+});
 
 const classes = computed(() => {
   const fullscreenClasses = [
@@ -49,6 +57,7 @@ const classes = computed(() => {
 
   return [shouldRenderFullscreen.value ? fullscreenClasses.join(" ") : "", {
     'scale-110': !model.value,
+    'pointer-events-auto': model.value || props.open
   }];
 });
 
@@ -70,7 +79,7 @@ function onClose() {
 
 <template>
   <Teleport :to="modalRoot">
-    <d-dimmed :show="model" :disabled="noBackdrop" :teleport="false">
+    <d-dimmed :style="{ 'z-index': zIndex }" :show="open || model" :disabled="noBackdrop" :teleport="false">
       <component :is="form ? 'form' : 'div'" class="size-full flex" :class="backClasses" @click.self="onClose" @submit.prevent="emit('submit')">
         <div class="bg-white p-4 rounded-3xl sm:min-w-96 min-w-72 border-2 shadow-2xl transition-all duration-300" :class="classes">
           <div class="m-4 font-medium text-3xl select-none empty:hidden">

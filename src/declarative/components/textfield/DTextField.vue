@@ -11,14 +11,26 @@ defineOptions({
 
 const props = withDefaults(defineProps<{
   size?: "small" | "medium" | "large",
-  placeholder?: string,
-  validity?: null | string | boolean,
+  placeholder?: string
+  type?: string
+
+  required?: boolean | string
+  noDelay?: boolean
+  delayValidation?: number
+  validity?: null | string | boolean
+  validatingMessage?: string
   invalidMessage?: string
   rules?: null | DTextFieldValidator | DTextFieldValidator[]
 }>(), {
   size: "medium",
   placeholder: "",
+  type: "text",
+
+  required: false,
+  noDelay: false,
+  delayValidation: 500,
   validity: null,
+  validatingMessage: "Validating...",
   invalidMessage: "Invalid",
   rules: null
 });
@@ -35,6 +47,8 @@ const inputRef = ref<HTMLInputElement>();
 defineExpose({
   inputRef
 });
+
+let delayedValidationTimeouts: Record<string,any> = {};
 
 const isValid = ref(true);
 const validityDisplay = ref(props.validity ?? props.invalidMessage);
@@ -95,22 +109,48 @@ function updateValidityFromRules() {
   }
 }
 
+function applyDelayForValidation(key: string, validator: Function) {
+  // Don't apply delay if noDelay is enabled
+  if(props.noDelay) {
+    validator();
+    return;
+  }
+
+  if(delayedValidationTimeouts[key])
+    clearTimeout(delayedValidationTimeouts[key]);
+
+  setValidity(props.validatingMessage);
+  delayedValidationTimeouts[key] = setTimeout(() => {
+    setValidity(null);
+    validator();
+  }, props.delayValidation);
+}
+
 // Watch custom validity property
-watch(() => props.validity, updateValidityFromProp);
+watch(
+    () => props.validity,
+    () => applyDelayForValidation("updateFromProp", updateValidityFromProp)
+);
 
 // Watch rules
-watch([() => props.rules, () => props.invalidMessage, model], updateValidityFromRules);
+watch(
+    [() => props.rules, () => props.invalidMessage, model],
+    () => applyDelayForValidation("updateFromRules", updateValidityFromRules)
+);
 
 // Watch current validity
-watch(model, () => {
-  isValid.value = inputRef.value?.validity?.valid ?? isValid.value;
-});
+watch(
+    model,
+    () => {
+      isValid.value = inputRef.value?.validity?.valid ?? isValid.value;
+    }
+);
 </script>
 
 <template>
   <div class="d-textfield-container group">
     <div class="d-textfield-input">
-      <input v-bind="$attrs" ref="inputRef" v-model="model" class="d-textfield" :class="classes" :placeholder="placeholder" type="text">
+      <input v-bind="$attrs" ref="inputRef" v-model="model" class="d-textfield" :class="classes" :placeholder="placeholder" :type="type">
       <div class="d-textfield-actions">
         <slot/>
       </div>
@@ -149,14 +189,14 @@ watch(model, () => {
 }
 
 .d-textfield.small {
-  @apply h-8 px-2
+  @apply h-10 px-2 text-base
 }
 
 .d-textfield.medium {
-  @apply h-10 px-2
+  @apply h-12 px-3 text-lg
 }
 
 .d-textfield.large {
-  @apply h-12 px-3
+  @apply h-14 px-3 text-2xl
 }
 </style>

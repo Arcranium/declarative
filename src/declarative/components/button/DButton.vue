@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import { DEffect } from "@lib/components/index";
 
 const props = withDefaults(defineProps<{
   primary?: boolean,
@@ -8,14 +7,22 @@ const props = withDefaults(defineProps<{
 
   size?: "small" | "medium" | "large",
 
-  submit?: boolean
+  disabled?: boolean
+
+  submit?: boolean,
+
+  value?: string | number | null
 }>(), {
   primary: false,
   dangerous: false,
 
   size: "medium",
 
-  submit: false
+  disabled: false,
+
+  submit: false,
+
+  value: null
 });
 
 const classes = computed(() => {
@@ -23,14 +30,16 @@ const classes = computed(() => {
     props.size,
     {
       primary: props.primary,
-      dangerous: props.dangerous
+      dangerous: props.dangerous,
+
+      disabled: props.disabled
     }
   ]
 });
 </script>
 
 <template>
-  <button class="d-button" :class="classes" :type="submit ? 'submit' : 'button'">
+  <button class="d-button" :class="classes" :type="submit ? 'submit' : 'button'" @click="selectOptionCore?.select(value)">
     <slot/>
   </button>
 </template>
@@ -45,12 +54,16 @@ const classes = computed(() => {
   @apply text-white border-transparent
 }
 
+.d-button.disabled {
+  @apply opacity-50 bg-gray-300 pointer-events-none
+}
+
 .d-button.primary {
   @apply bg-blue-500
 }
 
 .d-button.dangerous {
-  @apply bg-red-500 ring-red-400
+  @apply bg-red-400 ring-red-400
 }
 
 

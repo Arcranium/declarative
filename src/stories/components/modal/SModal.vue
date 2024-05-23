@@ -2,7 +2,7 @@
 import "@lib/styles/index.css";
 
 import DModal from "@lib/components/modal/DModal.vue";
-import DButton from "@lib/components/DButton.vue";
+import DButton from "../../../declarative/components/button/DButton.vue";
 import {h, onMounted, ref} from "vue";
 import {DTextField} from "@lib/components";
 import {createTopLevelElement} from "@lib/util";

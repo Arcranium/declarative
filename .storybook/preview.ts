@@ -21,7 +21,6 @@ const preview: Preview = {
 };
 
 setup((app) => {
-  app.use(createPinia())
   app.use(declarativePlugin({
     tailwindConfig: tailwindConfig
   }))

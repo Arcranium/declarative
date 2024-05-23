@@ -1,6 +1,14 @@
 export namespace TextRules {
     export type Validator = (input: string) => boolean;
 
+    export const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    export function requireMatchTo(to: string): Validator {
+        return (input: string) => {
+            return input == to;
+        }
+    }
+
     export function requireNoBlank(input: string) {
         return input.trim() != "";
     }
@@ -40,6 +48,10 @@ export namespace TextRules {
             if (!allow_dash) return requireRegEx(/^[a-z0-9_]+$/);
             else return requireRegEx(/^[a-z0-9_\-]+$/);
         }
+    }
+
+    export function requireEmail(input: string) {
+        return requireRegEx(regexEmail)(input);
     }
 
     export function requireMinimum(minimum: number): Validator {

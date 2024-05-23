@@ -1,5 +1,4 @@
 import {defineStore} from "pinia";
-import {ref, UnwrapRef} from "vue";
 import {ImperativeModalRenderData} from "@lib/imperative";
 
 export type State = {
@@ -13,13 +12,13 @@ export const useImperativeModalStore = defineStore("imperative-modals", {
         };
     },
     actions: {
-        addModal(modal: UnwrapRef<ImperativeModalRenderData>) {
+        addModal(modal: ImperativeModalRenderData) {
             this.modals.push(modal);
         },
-        getModal(identifier: string) {
+        getModal(identifier: string): ImperativeModalRenderData | undefined {
             return this.modals.find((it) => it.identifier == identifier);
         },
-        removeModal(modal: UnwrapRef<ImperativeModalRenderData>) {
+        removeModal(modal: ImperativeModalRenderData) {
             this.modals.splice(this.modals.indexOf(modal));
         },
         removeModalByIdentifier(identifier: string): boolean {

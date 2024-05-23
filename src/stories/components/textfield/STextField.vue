@@ -38,7 +38,14 @@ const validatorFunction = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col gap-4">
+    <d-text-field :validity="validateType == 'validity' && useValidator ? validity : null" :size="size" :placeholder="placeholder" :rules="useValidator && validateType == 'rules' ? validatorFunction.filter(it => it != null) : null">
+      <template #default v-if="useAction">
+        <d-text-field-action>
+
+        </d-text-field-action>
+      </template>
+    </d-text-field>
     <d-text-field :validity="validateType == 'validity' && useValidator ? validity : null" :size="size" :placeholder="placeholder" :rules="useValidator && validateType == 'rules' ? validatorFunction.filter(it => it != null) : null">
       <template #default v-if="useAction">
         <d-text-field-action>

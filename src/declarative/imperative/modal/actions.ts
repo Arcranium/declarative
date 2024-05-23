@@ -7,13 +7,12 @@ import {
 } from "@lib/imperative/modal";
 import {fillDefaults} from "@lib/util";
 import {v4 as uuid} from "uuid";
-import {ref} from "vue";
 
 export function createModalIdentifier(identifier: string) {
     return `imperative_modal_${identifier}`;
 }
 
-export function createModal(appContext: Vue.AppContext, options: ImperativeModalOptions, showAfter: boolean | number = options.show == true) {
+export function createModal(options: ImperativeModalOptions, showAfter: boolean | number = options.show == true) {
     const store = useImperativeModalStore();
 
     const filledOptions = fillDefaults<ImperativeModalOptionsFilled>(options, imperativeModalOptionsDefaults);
@@ -21,13 +20,12 @@ export function createModal(appContext: Vue.AppContext, options: ImperativeModal
 
     const identifier = uuid();
     const modalRenderData: ImperativeModalRenderData = {
-        appContext: appContext,
         identifier: identifier,
 
         options: filledOptions
     };
 
-    store.modals.push(ref(modalRenderData).value);
+    store.modals.push(modalRenderData);
 
     if(showAfter) {
         setTimeout(() => {
@@ -52,7 +50,32 @@ export function getModalRenderData(identifier: string) {
     return store.getModal(identifier);
 }
 
-export function destroyModal(identifier: string) {
+// TODO: Fix transition not triggered due to element life even if immediate is false
+export function destroyModal(identifier: string, immediate: boolean = false) {
     const store = useImperativeModalStore();
-    return store.removeModalByIdentifier(identifier);
+    if(immediate) {
+        return store.removeModalByIdentifier(identifier);
+    } else {
+        const modal = store.getModal(identifier);
+        if(!modal) return false;
+
+        modal.options = {
+            ...modal.options,
+            show: false
+        };
+
+        setTimeout(() => {
+            store.removeModal(modal);
+        });
+    }
+}
+
+export function showModal(identifier: string, show: boolean = true) {
+    updateModal(identifier, {
+        show: show
+    });
+}
+
+export function hideModal(identifier: string) {
+    showModal(identifier, false);
 }

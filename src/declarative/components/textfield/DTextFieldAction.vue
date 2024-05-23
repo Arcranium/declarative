@@ -17,14 +17,14 @@ const size = inject<Ref<"small" | "medium" | "large">>("textfield-size");
 }
 
 .d-textfield-actions.small {
-  @apply size-8
-}
-
-.d-textfield-actions.medium {
   @apply size-10
 }
 
-.d-textfield-actions.large {
+.d-textfield-actions.medium {
   @apply size-12
+}
+
+.d-textfield-actions.large {
+  @apply size-14
 }
 </style>

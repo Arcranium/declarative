@@ -1,7 +1,4 @@
-import * as Vue from "vue";
-
 export type ImperativeModalRenderData = {
-    appContext: Vue.AppContext
     identifier: string
 
     options: ImperativeModalOptionsFilled
@@ -16,14 +13,19 @@ export type ImperativeModalOptionsFilled = {
     loading: boolean,
     loadingColor: string | null,
 
+    closable: boolean | (() => boolean),
     deniable: boolean,
     acceptable: boolean,
+
+    closeOnDeny: boolean,
+    closeOnAccept: boolean
 
     denyLabel: string,
     acceptLabel: string,
 
     onDenyRequest: () => boolean,
 
+    onClose: () => void,
     onDeny: () => void,
     onAccept: () => void,
 }
@@ -39,14 +41,19 @@ export const imperativeModalOptionsDefaults: ImperativeModalOptionsFilled = {
     loading: false,
     loadingColor: null,
 
+    closable: true,
     deniable: false,
     acceptable: false,
+
+    closeOnDeny: true,
+    closeOnAccept: true,
 
     denyLabel: "Deny",
     acceptLabel: "Accept",
 
     onDenyRequest: () => true,
 
+    onClose: () => {},
     onDeny: () => {},
     onAccept: () => {}
 }

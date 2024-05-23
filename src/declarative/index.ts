@@ -1,4 +1,3 @@
-import type { App } from 'vue'
 import * as components from './components';
 import * as imperative from "./imperative";
 import "./styles/index.css";

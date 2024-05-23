@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "@lib/styles/index.css";
 
-import DButton from "@lib/components/DButton.vue";
+import DButton from "../../../declarative/components/button/DButton.vue";
 
 withDefaults(defineProps<{
   label?: string,
@@ -9,12 +9,16 @@ withDefaults(defineProps<{
 
   primary?: boolean,
   dangerous?: boolean
+
+  disabled?: boolean
 }>(), {
   label: "Button",
   size: "medium",
 
   primary: false,
-  dangerous: false
+  dangerous: false,
+
+  disabled: false
 });
 </script>
 
@@ -23,6 +27,8 @@ withDefaults(defineProps<{
       :size="size"
       :primary="primary"
       :dangerous="dangerous"
+
+      :disabled="disabled"
   >
     {{ label }}
   </d-button>
