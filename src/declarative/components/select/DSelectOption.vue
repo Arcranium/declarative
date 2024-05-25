@@ -2,14 +2,12 @@
 import {computed, onMounted, Ref} from "vue";
 import {inject} from "vue";
 
-import {v4 as uuid} from "uuid";
-
 const props = withDefaults(defineProps<{
   value?: string | number,
   default?: boolean,
   action?: boolean
 }>(), {
-  value: uuid(),
+  value: Math.random(),
   default: false,
   action: false
 });

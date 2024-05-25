@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import {computed, inject} from "vue";
 import {useSelectOptionCore} from "@lib/composables/select";
-import {v4 as uuid} from "uuid";
-import {storeToRefs} from "pinia";
 import {DButton} from "@lib/components";
 
 const props = withDefaults(defineProps<{
   value?: string | number,
   default?: boolean
 }>(),{
-  value: () => uuid(),
+  value: Math.random,
   default: false
 })
 
