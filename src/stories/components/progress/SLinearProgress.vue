@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {DButton, DLinearProgress} from "@lib/components";
+import {DLinearProgress} from "@lib/components";
 
 withDefaults(defineProps<{
   value?: number,
