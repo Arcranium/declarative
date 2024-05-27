@@ -1,7 +1,6 @@
 {
   "name": "declarative",
-  "author": "Arcranium <devlaq2331@gmail.com> (https://github.com/Arcranium)",
-  "version": "0.0.1",
+  "author": "Arcranium <devlaq2331@gmail.com> (https://github.com/Arcranium)""version": "0.0.2",
   "license": "MIT",
   "private": false,
   "description": "Build Vue 3 application faster with prebuilt components and utilities",

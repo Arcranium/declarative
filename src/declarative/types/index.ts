@@ -6,5 +6,6 @@ export type ComponentName = keyof typeof components
 import { Config } from "tailwindcss";
 
 export type PluginOptions = {
-  tailwindConfig: any
+  tailwindConfig: any,
+  teleportRoot: () => HTMLElement,
 }

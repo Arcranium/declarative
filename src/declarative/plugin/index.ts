@@ -3,11 +3,18 @@ import type {App} from "vue";
 import resolveConfig from "tailwindcss/resolveConfig";
 import {initializeImperativeModalRenderer} from "@lib/imperative";
 import {createPinia} from "pinia";
+import {fillDefaults} from "@lib/types";
 
-export const declarativePlugin = (pluginOptions: PluginOptions): any => {
+export const declarativePlugin = (pluginOptions: Partial<PluginOptions>): any => {
+    const pluginOptionsFilled = fillDefaults(pluginOptions, {
+        tailwindConfig: {},
+        teleportRoot: () => document.body
+    })
+
     return (app: App) => {
-        app.use(createPinia());
-        app.provide("tailwind-config", resolveConfig(pluginOptions.tailwindConfig));
+        console.log("[declarative] (declarativePlugin) Initializing")
+
+        app.provide("tailwind-config", resolveConfig(pluginOptionsFilled.tailwindConfig));
         app.provide("declarative-app-context", app._context);
 
         initializeImperativeModalRenderer(app._context);
