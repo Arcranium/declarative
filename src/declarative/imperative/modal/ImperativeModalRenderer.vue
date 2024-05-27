@@ -3,8 +3,6 @@ import {DModal, DButton} from "@lib/components";
 
 import {useImperativeModalStore} from "@lib/imperative/modal";
 import {storeToRefs} from "pinia";
-import {computed, ComputedRef} from "vue";
-import {get} from "@vueuse/core";
 
 const imperativeModalStores = useImperativeModalStore();
 const { modals } = storeToRefs(imperativeModalStores);
