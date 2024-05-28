@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import {DButton} from "@lib/components";
-import {imperative} from "@lib/index.ts";
+import {imperative, ImperativeModalState} from "@lib/index.ts";
 import {getAppContext} from "@lib/util/composables/appContext.ts";
 import {nextTick} from "vue";
-import {useImperativeModalStore} from "../../../declarative/imperative";
 
 const appContext = getAppContext();
 
-const modals = [];
+const modals: any[] = [];
 
 function openImperativeModal() {
   const modal = imperative.createModal({
@@ -35,7 +34,7 @@ function openImperativeModal() {
 <template>
   <d-button @click="openImperativeModal">
     Open Imperative Modal
-    {{ useImperativeModalStore().modals.length }}
+    {{ imperative.ImperativeModalState.modals.length }}
   </d-button>
 </template>
 

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {DModal, DButton} from "@lib/components";
+import {ImperativeModalState} from "@lib/imperative";
 
-import {useImperativeModalStore} from "@lib/imperative/modal";
-import {storeToRefs} from "pinia";
+// import {useImperativeModalStore} from "@lib/imperative/modal";
+// import {getActivePinia, storeToRefs} from "pinia";
+// const imperativeModalStores = useImperativeModalStore();
+// const { modals } = storeToRefs(imperativeModalStores);
 
-const imperativeModalStores = useImperativeModalStore();
-const { modals } = storeToRefs(imperativeModalStores);
+const modals = ImperativeModalState.modals
 </script>
+
 
 <template>
   <d-modal

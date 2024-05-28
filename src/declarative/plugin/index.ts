@@ -5,8 +5,12 @@ import {initializeImperativeModalRenderer} from "@lib/imperative";
 import {createPinia} from "pinia";
 import {fillDefaults} from "@lib/types";
 
-export function declarativeInjectAppContext(app: App) {
+export function declarativeProvideAppContext(app: App) {
     app.provide("declarative-app-context", app._context);
+}
+
+export function declarativeProvideTailwindConfig(app: App, tailwindConfig: any) {
+    app.provide("tailwind-config", resolveConfig(tailwindConfig))
 }
 
 export const declarativePlugin = (pluginOptions: Partial<PluginOptions>): any => {
@@ -18,8 +22,8 @@ export const declarativePlugin = (pluginOptions: Partial<PluginOptions>): any =>
     return (app: App) => {
         console.log("[declarative] (declarativePlugin) Initializing")
 
-        declarativeInjectAppContext(app)
-        app.provide("tailwind-config", resolveConfig(pluginOptionsFilled.tailwindConfig))
+        declarativeProvideAppContext(app)
+        declarativeProvideTailwindConfig(app, pluginOptionsFilled.tailwindConfig)
 
         initializeImperativeModalRenderer(app._context)
     };
