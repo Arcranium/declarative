@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import DTextField from "@lib/components/DTextField.vue";
-import STextField from "@stories/components/textfield/STextField.vue";
+import STextField from "./STextField.vue";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
@@ -10,7 +9,9 @@ const meta = {
     tags: ['autodocs'],
     argTypes: {
         size: { control: "select", options: ["small", "medium", "large"] },
-        placeholder: { control: "text" }
+        placeholder: { control: "text" },
+        useAction: { control: "boolean "},
+        useValidator: { control: "boolean" },
     }
 } satisfies Meta<typeof STextField>;
 
@@ -23,14 +24,35 @@ export const Small: Story = {
     }
 }
 
+export const Medium: Story = {
+    args: {
+        size: "medium"
+    }
+}
+
 export const Large: Story = {
     args: {
         size: "large"
     }
 }
 
-export const WithPlaceholder: Story = {
+export const Placeholder: Story = {
     args: {
         placeholder: "Here is the placeholder"
+    }
+}
+
+
+export const Action: Story = {
+    args: {
+        useAction: true
+    }
+}
+
+
+
+export const Validate: Story = {
+    args: {
+        useValidator: true
     }
 }

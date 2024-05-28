@@ -8,10 +8,12 @@ const meta = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['small', 'medium', 'large'] }
+    size: { control: 'select', options: ['small', 'medium', 'large'] },
+    disabled: { control: 'boolean' }
   },
   args: {
     primary: false,
+    disabled: false
   },
 } satisfies Meta<typeof SButton>;
 
@@ -32,6 +34,20 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     primary: false,
+    label: 'Button',
+  },
+};
+
+export const Dangerous: Story = {
+  args: {
+    dangerous: true,
+    label: 'Button',
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
     label: 'Button',
   },
 };

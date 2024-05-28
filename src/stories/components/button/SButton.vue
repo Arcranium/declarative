@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import "@stories/styles/main.css";
+import "@lib/styles/index.css";
 
-import DButton from "@lib/components/DButton.vue";
+import DButton from "../../../declarative/components/button/DButton.vue";
 
 withDefaults(defineProps<{
   label?: string,
   size?: "small" | "medium" | "large",
+
   primary?: boolean,
+  dangerous?: boolean
+
+  disabled?: boolean
 }>(), {
   label: "Button",
   size: "medium",
-  primary: false
+
+  primary: false,
+  dangerous: false,
+
+  disabled: false
 });
 </script>
 
@@ -18,6 +26,9 @@ withDefaults(defineProps<{
   <d-button
       :size="size"
       :primary="primary"
+      :dangerous="dangerous"
+
+      :disabled="disabled"
   >
     {{ label }}
   </d-button>
