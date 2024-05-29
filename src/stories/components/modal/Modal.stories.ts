@@ -12,14 +12,16 @@ const meta = {
         noBackdrop: { control: "boolean" },
         alignVertical: { control: "select", options: ["start", "center", "end"] },
         alignHorizontal: { control: "select", options: ["start", "center", "end"] },
-        fullscreen: { control: "select", options: ["True", "False", "Auto"] }
+        fullscreen: { control: "select", options: ["True", "False", "Auto"] },
+        depthDemo: { control: "boolean" }
     },
     args: {
         closable: true,
         noBackdrop: false,
         alignVertical: "center",
         alignHorizontal: "center",
-        fullscreen: "False"
+        fullscreen: "False",
+        depthDemo: false
     },
 } satisfies Meta<typeof SModal>;
 
@@ -43,5 +45,11 @@ export const NoBackdrop: Story = {
 export const Fullscreen: Story = {
     args: {
         fullscreen: "True"
+    }
+}
+
+export const DepthDemo: Story = {
+    args: {
+        depthDemo: true
     }
 }

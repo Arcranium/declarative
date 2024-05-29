@@ -3,7 +3,16 @@ import {inject} from "vue";
 
 export function useTailwindBreakpoints() {
     const config = inject<any>("tailwind-config");
-    const screens = config.theme.screens;
+    const screens = config?.theme?.screens;
+    if(!screens) {
+        return useBreakpoints({
+            sm: '640px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
+            '2xl': '1536px',
+        })
+    }
 
     function parse(input: string) {
         return parseInt(input.replace("px", ""));

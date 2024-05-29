@@ -16,7 +16,9 @@ const props = withDefaults(defineProps<{
   alignVertical?: "start" | "center" | "end",
   alignHorizontal?: "start" | "center" | "end",
 
-  fullscreen?: "True" | "False" | "Auto"
+  fullscreen?: "True" | "False" | "Auto",
+
+  depthDemo?: boolean
 }>(), {
   title: "Title",
 
@@ -26,7 +28,9 @@ const props = withDefaults(defineProps<{
   alignVertical: "center",
   alignHorizontal: "center",
 
-  fullscreen: "False"
+  fullscreen: "False",
+
+  depthDemo: false
 });
 
 const open = ref(false);

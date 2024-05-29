@@ -17,9 +17,7 @@ function openImperativeModal() {
     acceptLabel: "Create again",
     closeOnAccept: false,
     onDeny() {
-      for(const item of modals) {
-        imperative.destroyModal(item);
-      }
+      imperative.hideModal(modals[modals.length - 1]);
     },
     onAccept() {
         openImperativeModal();
