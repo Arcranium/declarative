@@ -4,6 +4,7 @@ import {computed} from "vue";
 const props = withDefaults(defineProps<{
   primary?: boolean,
   dangerous?: boolean,
+  text?: boolean
 
   size?: "small" | "medium" | "large",
 
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   primary: false,
   dangerous: false,
+  text: false,
 
   size: "medium",
 
@@ -31,6 +33,7 @@ const classes = computed(() => {
     {
       primary: props.primary,
       dangerous: props.dangerous,
+      text: props.text,
 
       disabled: props.disabled
     }
@@ -52,6 +55,10 @@ const classes = computed(() => {
 .d-button.primary,
 .d-button.dangerous {
   @apply text-white border-transparent
+}
+
+.d-button.text {
+  @apply border-transparent
 }
 
 .d-button.disabled {

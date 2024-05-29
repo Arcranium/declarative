@@ -45,6 +45,14 @@ export const Dangerous: Story = {
   },
 };
 
+export const Text: Story = {
+  args: {
+    text: true,
+    label: 'Button'
+  },
+};
+
+
 export const Disabled: Story = {
   args: {
     disabled: true,

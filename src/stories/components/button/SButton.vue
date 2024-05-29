@@ -9,6 +9,7 @@ withDefaults(defineProps<{
 
   primary?: boolean,
   dangerous?: boolean
+  text?: boolean
 
   disabled?: boolean
 }>(), {
@@ -17,6 +18,7 @@ withDefaults(defineProps<{
 
   primary: false,
   dangerous: false,
+  text: false,
 
   disabled: false
 });
@@ -24,11 +26,12 @@ withDefaults(defineProps<{
 
 <template>
   <d-button
-      :size="size"
-      :primary="primary"
-      :dangerous="dangerous"
+      :size
+      :primary
+      :dangerous
+      :text
 
-      :disabled="disabled"
+      :disabled
   >
     {{ label }}
   </d-button>
