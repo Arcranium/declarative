@@ -50,7 +50,7 @@ defineExpose({
 
 let delayedValidationTimeouts: Record<string,any> = {};
 
-const isValid = ref(true);
+const isValid = ref((props.validity == "" || props.validity == null) && (props.rules == null || (Array.isArray(props.rules) && props.rules.length < 1)));
 const validityDisplay = ref(props.validity ?? props.invalidMessage);
 
 const classes = computed(() => {

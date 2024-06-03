@@ -65,10 +65,10 @@ requestAnimationFrame(animateIndeterminateOffset);
 </script>
 
 <template>
-  <div class="*:absolute w-14 h-14 flex justify-center items-center" :class="classes">
-    <div class="w-8 h-8 rounded-full bg-blue-500" :class="circleClasses"/>
-    <svg class="-rotate-90" viewbox="0 0 100 100" width="3.5rem" height="3.5rem">
-      <circle ref="indicatorRef" class="indicator transition-all fill-none stroke-blue-400" cx="50%" cy="50%" r="1.3rem" />
+  <div class="w-14 h-14 !size-8 flex justify-center items-center" :class="classes">
+    <div class="w-1/2 h-1/2 rounded-full bg-blue-500" :class="circleClasses"/>
+    <svg class="-rotate-90 absolute" viewbox="0 0 100 100" width="100%" height="100%">
+      <circle ref="indicatorRef" class="indicator transition-all fill-none stroke-blue-400" cx="50%" cy="50%" r="40%" />
     </svg>
   </div>
 </template>
