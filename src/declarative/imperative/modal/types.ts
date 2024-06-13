@@ -23,6 +23,9 @@ export type ImperativeModalOptionsFilled = {
     denyLabel: string,
     acceptLabel: string,
 
+    denyDisabled: boolean,
+    acceptDisabled: boolean,
+
     onDenyRequest: () => boolean,
 
     onClose: () => void,
@@ -50,6 +53,9 @@ export const imperativeModalOptionsDefaults: ImperativeModalOptionsFilled = {
 
     denyLabel: "Deny",
     acceptLabel: "Accept",
+
+    denyDisabled: false,
+    acceptDisabled: false,
 
     onDenyRequest: () => true,
 

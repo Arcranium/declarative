@@ -16,6 +16,7 @@ function openImperativeModal() {
     denyLabel: "Close",
     acceptLabel: "Create again",
     closeOnAccept: false,
+    acceptDisabled: modals.length > 9,
     onDeny() {
       imperative.hideModal(modals[modals.length - 1]);
     },

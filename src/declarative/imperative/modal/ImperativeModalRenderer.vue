@@ -27,22 +27,33 @@ const modals = ImperativeModalState.modals
     </template>
     <template #action>
       <div class="flex *:flex-1 gap-2">
-        <d-button v-if="modal.options.deniable" dangerous @click="modal.options.onDenyRequest().runIfTrue(() => {
-            modal.options.onDeny()
-            if(modal.options.closeOnDeny) {
-              modal.options.show = false;
-              modal.options.onClose()
-            }
-          })">
+        <d-button
+            v-if="modal.options.deniable"
+            dangerous
+            @click="modal.options.onDenyRequest().runIfTrue(() => {
+              modal.options.onDeny()
+              if(modal.options.closeOnDeny) {
+                modal.options.show = false;
+                modal.options.onClose()
+              }
+            })"
+            :disabled="modal.options.denyDisabled"
+        >
           {{ modal.options.denyLabel }}
         </d-button>
-        <d-button v-if="modal.options.acceptable" primary @click="() => {
-            modal.options.onAccept();
-            if(modal.options.closeOnAccept) {
-              modal.options.show = false;
-              modal.options.onClose();
-            }
-          }">
+        <d-button
+            v-if="modal.options.acceptable"
+            primary
+            @click="() => {
+              modal.options.onAccept();
+              if(modal.options.closeOnAccept) {
+                modal.options.show = false;
+                modal.options.onClose();
+              }
+            }"
+
+            :disabled="modal.options.acceptDisabled"
+        >
           {{ modal.options.acceptLabel }}
         </d-button>
       </div>

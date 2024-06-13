@@ -42,7 +42,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <button class="d-button" :class="classes" :type="submit ? 'submit' : 'button'" @click="selectOptionCore?.select(value)">
+  <button class="d-button" :class="classes" :type="submit ? 'submit' : 'button'" :disabled>
     <slot/>
   </button>
 </template>
